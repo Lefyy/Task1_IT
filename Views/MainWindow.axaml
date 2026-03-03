@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="using:Task1"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Task1.ViewModels"
+        mc:Ignorable="d" 
+        d:DesignWidth="800" 
+        d:DesignHeight="500"
+        x:Class="Task1.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Task1">
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Margin="16" RowSpacing="10">
+        <TextBlock Text="Мой стек"
+                   FontSize="22"
+                   FontWeight="SemiBold" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8">
+            <TextBox Width="300"
+                     Watermark="Введите значение"
+                     Text="{Binding InputValue, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button Content="Push"
+                    Command="{Binding PushCommand}" />
+
+            <Button Content="Pop"
+                    Command="{Binding PopCommand}" />
+
+            <Button Content="Peek"
+                    Command="{Binding PeekCommand}" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="2"
+                   Text="{Binding StatusMessage}"
+                   TextWrapping="Wrap" />
+
+        <Border Grid.Row="3"
+                BorderThickness="1"
+                BorderBrush="#8899AA"
+                Padding="10"
+                CornerRadius="8">
+            <Grid RowDefinitions="Auto,Auto,*" RowSpacing="6">
+                <TextBlock Text="Содержимое стека (сверху вниз):"
+                           FontWeight="Bold" />
+
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Count, StringFormat='Количество элементов: {0}'}" />
+
+                <ItemsControl Grid.Row="2"
+                              ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,3,0,3"
+                                    Padding="8"
+                                    CornerRadius="5"
+                                    Background="#223A66">
+                                <TextBlock Text="{Binding .}"
+                                           Foreground="White" />
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
